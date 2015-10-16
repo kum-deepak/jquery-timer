@@ -97,7 +97,7 @@
 	 	this.go = function() {
 	 		if(this.isActive) {
 				try { this.action(); }
-	 			finally { this.setTimer(); }
+	 			finally { this.stop(); }
 	 		}
 	 	};
 	 	
