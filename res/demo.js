@@ -146,3 +146,46 @@ function formatTime(time) {
         hundredths = pad(time - (sec * 100) - (min * 6000), 2);
     return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2) + ":" + hundredths;
 }
+
+
+
+
+var Example5 = new (function() {
+    var $status, // Status element on the page
+        updateStatus = function() {
+            $status.html('Timer5 Status ---- Active: [' + Example5.Timer.isActive + '] </br>'
+                + ' ---- Fired at: [' + Example5.firedAt + '] </br>'
+                + ' ---- Remaining: [' + Example5.Timer.remaining + 'ms]');
+        },
+        updateTimerInfo= function () {
+            $('#non-periodic-timer-info').html("Timer5 - at [" + (new Date()).toISOString() + ']</br>'
+                + ' ---- Remaining: [' + Example5.Timer.remaining + 'ms]</br>'
+                + ' ---- Should fire at ['
+                    + (new Date(new Date().getTime() + Example5.Timer.remaining)).toISOString() + ']</br>');
+        },
+        onCompletion = function() {
+            Example5.firedAt = (new Date()).toISOString();
+            Example5.StatusTimer.once();
+        },
+        init = function() {
+            $status = $('#non-periodic-status');
+            Example5.firedAt= 'Not yet';
+            Example5.Timer = $.timer(onCompletion, 4000, true, false);
+            updateTimerInfo();
+            Example5.StatusTimer= $.timer(updateStatus, 0, false);
+            Example5.StatusTimer.once();
+        };
+
+    this.play = function() {
+        this.Timer.play();
+        updateTimerInfo();
+    };
+    this.setTime = function() {
+        var newTime= parseInt($('#non-periodic-status-time-ms').val());
+        this.Timer.stop();
+        this.Timer.set({time: newTime, autostart: true});
+        updateTimerInfo();
+    };
+    $(init);
+});
+

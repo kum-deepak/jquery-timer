@@ -27,15 +27,22 @@
  */
 
 ;(function($) {
-	$.timer = function(func, time, autostart) {	
-	 	this.set = function(func, time, autostart) {
+	$.timer = function(func, time, autostart, periodic) {
+	 	this.set = function(func, time, autostart, periodic) {
 	 		this.init = true;
 	 	 	if(typeof func == 'object') {
-		 	 	var paramList = ['autostart', 'time'];
+		 	 	var paramList = ['autostart', 'time', 'periodic'];
 	 	 	 	for(var arg in paramList) {if(func[paramList[arg]] != undefined) {eval(paramList[arg] + " = func[paramList[arg]]");}};
  	 			func = func.action;
 	 	 	}
 	 	 	if(typeof func == 'function') {this.action = func;}
+			if (periodic != undefined) {
+				this.periodic = periodic;
+			} else {
+				if (this.periodic == undefined) {
+					this.periodic = true;
+				}
+			}
 		 	if(!isNaN(time)) {this.intervalTime = time;}
 		 	if(autostart && !this.isActive) {
 			 	this.isActive = true;
@@ -97,14 +104,14 @@
 	 	this.go = function() {
 	 		if(this.isActive) {
 				try { this.action(); }
-	 			finally { this.stop(); }
+	 			finally { this.periodic ? this.setTimer() : this.stop(); }
 	 		}
 	 	};
 	 	
 	 	if(this.init) {
-	 		return new $.timer(func, time, autostart);
+	 		return new $.timer(func, time, autostart, periodic);
 	 	} else {
-			this.set(func, time, autostart);
+			this.set(func, time, autostart, periodic);
 	 		return this;
 	 	}
 	};

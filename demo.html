@@ -80,5 +80,20 @@ var timer = $.timer(function() {
     $('#counter').html(++count);
 });
 timer.set({ time : 1000, autostart : true });</pre>
+
+    <h3>Example 5 - Non Periodic (fires only once)</h3>
+    <span id="non-periodic-status"></span> <br/><br/>
+    <span id="non-periodic-timer-info"></span>
+    <p>
+        <input type='button' value='Pause' onclick='Example5.Timer.pause();Example5.StatusTimer.once();' />
+        <input type='button' value='Play' onclick='Example5.play();Example5.StatusTimer.once();' />
+        <input type='button' value='Stop' onclick='Example5.Timer.stop();;Example5.StatusTimer.once();' />
+        <input id='non-periodic-status-time-ms' type='text' value='4000' />
+        <input type='button' value='Set' onclick='Example5.setTime();Example5.StatusTimer.once();' />
+    </p>
+    <br/>
+    <br/>
+
+
 </body>
 </html>
