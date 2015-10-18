@@ -18,8 +18,8 @@ Download: [http://jchavannes.com/download/jquery-timer-demo.zip](http://jchavann
 
 * **autostart** A Boolean indicating whether to start the timer. Defaults to false.
 
-* **periodic** A Boolean indicating whether to keep repeating the action. Defaults to true. Set it to false to run it only once.
-
+* **periodic** A Boolean indicating whether to keep repeating the action. Defaults to true. 
+Set it to false to run it only once.
 It is different than `timer.once`, which can not be paused, stopped, or toggled.
 
 ---
